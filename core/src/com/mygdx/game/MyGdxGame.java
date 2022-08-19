@@ -7,31 +7,39 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-//task1
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	int clk;
+	Texture myImg;
+
+	int count;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		myImg = new Texture("mypic.png");
 	}
 
 	@Override
 	public void render () {
+		ScreenUtils.clear(1, 1, 1, 1);
 
-		ScreenUtils.clear(1, 0, 0, 1);
-		float x = (Gdx.graphics.getWidth() - img.getWidth())/2 ;
-		//float y = Gdx.graphics.getHeight()-Gdx.input.getY()- img.getHeight()/2;
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) clk++;
-		Gdx.graphics.setTitle("Clicked" +clk+ "times");
+		float x = Gdx.input.getX() - myImg.getWidth() / 2;
+		float y = Gdx.graphics.getHeight() - Gdx.input.getY() - myImg.getHeight()/2;
+
+		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+			count++;
+		}
+
+		Gdx.graphics.setTitle("Button pressed " + count + " times");
+
 		batch.begin();
-		batch.draw(img, x, 0);
-		//batch.draw(img, x, y);
+		batch.draw(img, 0, 0);
+		batch.draw(myImg, x, y);
 		batch.end();
 	}
-	
+
 	@Override
 	public void dispose () {
 		batch.dispose();
